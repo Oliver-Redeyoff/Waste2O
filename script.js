@@ -320,7 +320,7 @@ function initMap() {
       }], {name: 'Styled Map'});
 
   map = new google.maps.Map(document.getElementById('map'), {
-    disableDefaultUI: true, zoom: 4, center: startLocation,
+    disableDefaultUI: true, zoom: 13, center: startLocation,
     mapTypeControlOptions: {
       mapTypeIds: ['roadmap', 'satellite', 'hybrid', 'terrain','styled_map']
     }
@@ -329,35 +329,44 @@ function initMap() {
   map.mapTypes.set('styled_map', styledMapType);
   map.setMapTypeId('styled_map');
 
-  // if (navigator.geolocation) {
-  //   navigator.geolocation.getCurrentPosition(function(position) {
-  //     currentPos = {
-  //       lat: position.coords.latitude,
-  //       lng: position.coords.longitude
-  //     };
-  //
-  //     var geocoder = new google.maps.Geocoder;
-  //
-  //     geocoder.geocode({'location': currentPos}, function(results, status) {
-  //       if (status === 'OK') {
-  //         if (results[0]) {
-  //           document.getElementById("location").innerHTML = "" + results[0].formatted_address;
-  //         } else {
-  //           window.alert('No results found');
-  //         }
-  //       }
-  //     });
-  //
-  //     //drawLocation(currentPos, "L");
-  //     var marker = new google.maps.Marker({position: currentPos, icon: "assets/person.png", map: map});
-  //     map.setCenter(currentPos);
-  //
-  //   }, function() {
-  //     handleLocationError(true, infoWindow, map.getCenter());
-  //   });
-  //
-  // } else {
-  //   handleLocationError(false, infoWindow, map.getCenter());
-  // }
 
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      currentPos = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      };
+
+      //var geocoder = new google.maps.Geocoder;
+      // geocoder.geocode({'location': currentPos}, function(results, status) {
+      //   if (status === 'OK') {
+      //     if (results[0]) {
+      //       document.getElementById("location").innerHTML = "" + results[0].formatted_address;
+      //     } else {
+      //       window.alert('No results found');
+      //     }
+      //   }
+      // });
+
+      //drawLocation(currentPos, "L");
+      var marker = new google.maps.Marker({position: currentPos, icon: "assets/person.png", map: map});
+      map.setCenter(currentPos);
+      map.zoom = 13;
+
+    }, function() {
+      handleLocationError(true, infoWindow, map.getCenter());
+    });
+
+  } else {
+    handleLocationError(false, infoWindow, map.getCenter());
+  }
+
+}
+
+function drawLocation(position, label){
+	var marker = new google.maps.Marker({
+    position: position,
+    map: map,
+    label: label
+  });
 }
