@@ -71,10 +71,47 @@
   background-color: rgba(226, 250, 250, 0.7);
 }
 
+.footer h1{
+  position: absolute;
+  margin-bottom: 0px;
+  font-size: 24px;
+  font-family: arial;
+  font-weight: bold;
+  bottom: 10;
+  left: 20;
+  padding: 0px;
+}
 .footer p{
   position: absolute;
-  font-size: 24px;
-  font-weight: bold;
-  bottom: 0;
-  left: 20;
+  bottom: 18;
+  margin-bottom: 0px;
+  height: 20px;
+  font-size: 20px;
+  font-family: arial;
+}
+
+#tagFilterLabel{
+  left: 20%;
+}
+#tagFilter{
+  position: absolute;
+  height: 20px;
+  bottom: 15;
+  border-radius: 0px;
+  border: 1px solid black;
+  background-color: white;
+  left: calc(20% + 50px);
+}
+
+#packagingFilterLabel{
+  left: 40%;
+}
+#packagingFilter{
+  position: absolute;
+  height: 20px;
+  bottom: 15;
+  border-radius: 0px;
+  border: 1px solid black;
+  background-color: white;
+  left: calc(40% + 110px);
 }

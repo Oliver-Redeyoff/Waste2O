@@ -10,14 +10,35 @@
     <div id="map"></div>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDSbrWA2sznywFet3dt4yodoLdTCLpVxJE&callback=initMap"></script>
     <div class="header">
-      <div class="profile" onclick="profileClick()"><img src="assets/unknown.png"/></div>
+      <div class="profile" onclick="logIn()"><img src="assets/unknown.png"/></div>
       <img id="logo" src="assets/logo.png">
       <input type="text" id="search" name="search" placeholder="Search">
     </div>
 
     <div class="footer">
-      <p>Filter by</p>
+      <h1>Filter by :</h1>
+
+      <p id="tagFilterLabel">Tag :</p>
+      <select id="tagFilter">
+        <option>Vegan</option>
+        <option>Spicy</option>
+        <option>Vegetarian</option>
+        <option>Meat</option>
+      </select>
+
+      <p id="packagingFilterLabel">Packaging :</p>
+      <select id="packagingFilter">
+        <option>Glass</option>
+        <option>Paper</option>
+        <option>Bring your own</option>
+        <option>Carboard</option>
+      </select>
+
     </div>
+
+    <div>
+
+
   </body>
 
 </htlm>

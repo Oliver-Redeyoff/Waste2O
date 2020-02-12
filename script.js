@@ -1,10 +1,8 @@
 var startLocation = {lat: -25.344, lng: 131.036};
+var paris = {lat: 48.856613, lng: 2.352222};
 
 var styledMapType;
 var map;
-
-var line;
-var lineSymbol;
 
 var currentPos;
 
@@ -337,19 +335,19 @@ function initMap() {
         lng: position.coords.longitude
       };
 
-      //var geocoder = new google.maps.Geocoder;
-      // geocoder.geocode({'location': currentPos}, function(results, status) {
-      //   if (status === 'OK') {
-      //     if (results[0]) {
-      //       document.getElementById("location").innerHTML = "" + results[0].formatted_address;
-      //     } else {
-      //       window.alert('No results found');
-      //     }
-      //   }
-      // });
+      var userLocation = new google.maps.Marker({animation: google.maps.Animation.DROP, position: currentPos, icon: "assets/person.png", map: map, title:"test"});
 
-      //drawLocation(currentPos, "L");
-      var marker = new google.maps.Marker({position: currentPos, icon: "assets/person.png", map: map});
+
+      var request = new XMLHttpRequest();
+      request.open('GET', 'https://us-central1-waste2o-268013.cloudfunctions.net/fetchShops', true);
+
+      request.onload = function() {
+        var data = JSON.parse(this.response);
+        console.log(data);
+        data.forEach(element => convertAndDrop(element));
+      }
+      request.send();
+
       map.setCenter(currentPos);
       map.zoom = 13;
 
@@ -363,22 +361,44 @@ function initMap() {
 
 }
 
-function drawLocation(position, label){
-	var marker = new google.maps.Marker({
+function drop(title, position){
+	var newMarker = new google.maps.Marker({
+    animation: google.maps.Animation.DROP,
+    Title: title,
     position: position,
     map: map,
-    label: label
   });
+  google.maps.event.addDomListener(newMarker, 'click', function() {markerClick(newMarker)});
 }
-<<<<<<< HEAD
+
+
+function convertAndDrop(location){
+  var request = new XMLHttpRequest()
+
+  // Open a new connection, using the GET request on the URL endpoint
+  request.open('GET', 'https://maps.googleapis.com/maps/api/geocode/json?address=' + location.address + '&key=AIzaSyDSbrWA2sznywFet3dt4yodoLdTCLpVxJE', true)
+
+  var data = null;
+  request.onload = function () {
+    data = JSON.parse(this.response)
+    drop(location.name, data.results[0].geometry.location);
+  }
+
+  request.send()
+}
+
 
 function profileClick(){
   location.href = 'pages/ProfilePage.html';
 }
 
+
 function logIn(){
-	document.cookie = "username=John Doe";
+	document.cookie = "username=; expires=Thu, 18 Dec 2014 12:00:00 UTC; path=/";
 	console.log(document.cookie);
 }
-=======
->>>>>>> 4958e2f510b0d2004bc01a20a0af8f43aa71c2a7
+
+
+function markerClick(marker){
+  console.log(marker.getTitle());
+}
