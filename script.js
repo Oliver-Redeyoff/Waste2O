@@ -370,3 +370,7 @@ function drawLocation(position, label){
     label: label
   });
 }
+
+function profileClick(){
+  location.href = 'pages/ProfilePage.html';
+}
