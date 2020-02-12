@@ -339,7 +339,7 @@ function initMap() {
 
 
       var request = new XMLHttpRequest();
-      request.open('GET', 'https://us-central1-waste2o-268013.cloudfunctions.net/fetchShops', true);
+      request.open('GET', 'https://europe-west2-waste2o-268013.cloudfunctions.net/allShops', true);
 
       request.onload = function() {
         var data = JSON.parse(this.response);
@@ -394,11 +394,28 @@ function profileClick(){
 
 
 function logIn(){
-	document.cookie = "username=; expires=Thu, 18 Dec 2014 12:00:00 UTC; path=/";
+	//document.cookie = "username=; expires=Thu, 18 Dec 2014 12:00:00 UTC; path=/";
+  if(document.cookie == ""){
+    location.href = "pages/SignIn.html"
+  } else {
+    location.href = "pages/ProfilePage.html"
+  }
 	console.log(document.cookie);
 }
 
 
 function markerClick(marker){
   console.log(marker.getTitle());
+  document.getElementById("shopPageHidden").id = "shopPageVisible";
+
+
+  var shopInfoRequest = new XMLHttpRequest()
+  var body = JSON.stringify({address: marker.getTitle()})
+	shopInfoRequest.open("POST", "https://us-central1-waste2o-268013.cloudfunctions.net/fetchShopDetails");
+	var shopInfo = null;
+  shopInfoRequest.send(body);
+	shopInfoRequest.onload = function () {
+		shopInfo = JSON.parse(this.response)
+    console.log(shopInfo);
+	}
 }
