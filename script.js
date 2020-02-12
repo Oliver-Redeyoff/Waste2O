@@ -370,3 +370,9 @@ function drawLocation(position, label){
     label: label
   });
 }
+
+//username, password
+function logIn(){
+	document.cookie = "username=John Doe";
+	console.log(document.cookie);
+}
