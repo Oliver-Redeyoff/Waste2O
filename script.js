@@ -371,6 +371,13 @@ function drawLocation(position, label){
   });
 }
 
+<<<<<<< HEAD
 function profileClick(){
   location.href = 'pages/ProfilePage.html';
+=======
+//username, password
+function logIn(){
+	document.cookie = "username=John Doe";
+	console.log(document.cookie);
+>>>>>>> 6fa4686aa00f918702202d6ff144c156076c674f
 }
