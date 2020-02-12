@@ -370,6 +370,7 @@ function drawLocation(position, label){
     label: label
   });
 }
+<<<<<<< HEAD
 
 function profileClick(){
   location.href = 'pages/ProfilePage.html';
@@ -379,3 +380,5 @@ function logIn(){
 	document.cookie = "username=John Doe";
 	console.log(document.cookie);
 }
+=======
+>>>>>>> 4958e2f510b0d2004bc01a20a0af8f43aa71c2a7
