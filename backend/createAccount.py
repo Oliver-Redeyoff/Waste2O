@@ -52,6 +52,6 @@ def create_account(request):
         
         dic = {"email": email, "password": key, "salt": salt, "type": account_type}
         db.collection(collection_path).document(email).set(dic)
-        return("it worked", 200, headers)
+        return("success", 200, headers)
     except Exception as e:
         return(str(e), 500, headers)
