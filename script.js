@@ -338,6 +338,19 @@ function initMap() {
       var userLocation = new google.maps.Marker({animation: google.maps.Animation.DROP, position: currentPos, icon: "assets/person.png", map: map, title:"test"});
 
 
+      // fetch('https://europe-west2-waste2o-268013.cloudfunctions.net/allShops', {
+      //   mode: 'cors',
+      //   credentials: 'include',
+      //   method: "GET"
+      // })
+      //   .then((response) => {
+      //     console.log(response.json());
+      //     return response.json();
+      //   })
+      //   .then((data) => {
+      //     data.forEach(element => convertAndDrop(element));
+      //   });
+
       var request = new XMLHttpRequest();
       request.open('GET', 'https://europe-west2-waste2o-268013.cloudfunctions.net/allShops', true);
 
@@ -376,15 +389,26 @@ function convertAndDrop(location){
   var request = new XMLHttpRequest()
 
   // Open a new connection, using the GET request on the URL endpoint
-  request.open('GET', 'https://maps.googleapis.com/maps/api/geocode/json?address=' + location.address + '&key=AIzaSyDSbrWA2sznywFet3dt4yodoLdTCLpVxJE', true)
+  // request.open('GET', 'https://maps.googleapis.com/maps/api/geocode/json?address=' + location.address + '&key=AIzaSyDSbrWA2sznywFet3dt4yodoLdTCLpVxJE', true)
+  //
+  // var data = null;
+  // request.onload = function () {
+  //   data = JSON.parse(this.response)
+  //   drop(location.name, data.results[0].geometry.location);
+  // }
+  //
+  // request.send()
 
-  var data = null;
-  request.onload = function () {
-    data = JSON.parse(this.response)
-    drop(location.name, data.results[0].geometry.location);
-  }
-
-  request.send()
+  fetch('https://maps.googleapis.com/maps/api/geocode/json?address=' + location.address + '&key=AIzaSyDSbrWA2sznywFet3dt4yodoLdTCLpVxJE', {
+    mode: 'cors',
+    method: "GET"
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      drop(location.address, data.results[0].geometry.location);
+    });
 }
 
 
@@ -406,16 +430,39 @@ function logIn(){
 
 function markerClick(marker){
   console.log(marker.getTitle());
-  document.getElementById("shopPageHidden").id = "shopPageVisible";
+  if(document.getElementById("shopPageHidden")){
+    document.getElementById("shopPageHidden").id = "shopPageVisible";
+  }
+
+  fetch('https://europe-west2-waste2o-268013.cloudfunctions.net/shopDetails', {
+    body: JSON.stringify({address:marker.getTitle()}),
+    headers: {"Content-Type": "application/json"},
+    mode: 'cors',
+    method: "POST"
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      console.log(data);
+      document.getElementById("shopName").innerHTML = data.name;
+      document.getElementById("shopDescription").innerHTML = data.description;
+      document.getElementById("shopAddress").innerHTML = data.address;
+      for(product in data.products){
+        console.log(product);
+      }
+    });
 
 
-  var shopInfoRequest = new XMLHttpRequest()
-  var body = JSON.stringify({address: marker.getTitle()})
-	shopInfoRequest.open("POST", "https://us-central1-waste2o-268013.cloudfunctions.net/fetchShopDetails");
-	var shopInfo = null;
-  shopInfoRequest.send(body);
-	shopInfoRequest.onload = function () {
-		shopInfo = JSON.parse(this.response)
-    console.log(shopInfo);
-	}
 }
+
+// var shopInfoRequest = new XMLHttpRequest()
+// var body = JSON.stringify({address:"29 Shaftesbury Road Bath, Somerset"})
+// console.log(body)
+// shopInfoRequest.open("POST", "https://us-central1-waste2o-268013.cloudfunctions.net/fetchShopDetails");
+// var shopInfo = null;
+// shopInfoRequest.send(body);
+// shopInfoRequest.onload = function () {
+// 	shopInfo = JSON.parse(this.response)
+//   console.log(shopInfo);
+// }
