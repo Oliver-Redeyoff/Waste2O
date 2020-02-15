@@ -336,7 +336,7 @@ function initMap() {
       };
 
       var userLocation = new google.maps.Marker({animation: google.maps.Animation.DROP, position: currentPos, icon: "assets/person.png", map: map, title:"test"});
-
+      google.maps.event.addDomListener(map, 'click', function() {clearShopInfo()});
 
       // fetch('https://europe-west2-waste2o-268013.cloudfunctions.net/allShops', {
       //   mode: 'cors',
@@ -448,12 +448,27 @@ function markerClick(marker){
       document.getElementById("shopName").innerHTML = data.name;
       document.getElementById("shopDescription").innerHTML = data.description;
       document.getElementById("shopAddress").innerHTML = data.address;
+      document.getElementById("shopProducts").innerHTML = "";
+
       for(product in data.products){
         console.log(product);
+        var html =
+          "<div id='product'>" +
+          "<p><a style='font-weight: bold'>Name : </a>" + data.products[product].name + "</p>" +
+          "<p><a style='font-weight: bold'>Description : </a>" + data.products[product].description + "</p>" +
+          "<p><a style='font-weight: bold'>Packaging : </a>" + data.products[product].packaging + "</p>" +
+          "</div>";
+
+        document.getElementById("shopProducts").innerHTML += html;
       }
     });
 
+}
 
+function clearShopInfo(){
+  if(document.getElementById("shopPageVisible")) {
+    document.getElementById("shopPageVisible").id = "shopPageHidden";
+  }
 }
 
 // var shopInfoRequest = new XMLHttpRequest()

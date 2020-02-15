@@ -1,10 +1,14 @@
 @keyframes appear {
   0%{right: -500}
-  100%{right: 0}
+  100%{right: 20}
 }
 @keyframes disapear {
-  0%{right: 0}
+  0%{right: 20}
   100%{right: -500}
+}
+
+body{
+  overflow: hidden;
 }
 
 #map{
@@ -128,17 +132,19 @@
 
 .shopPage{
   position: absolute;
-  top: 100;
-  width: 500px;
-  height: calc(100% - 130px);
-  background-color: rgba(0, 0, 0, 0.7);
-  color: white;
+  top: 120;
+  width: 400px;
+  height: calc(100% - 220px);
+  background-color: rgba(226, 250, 250, 0.7);
+  color: black;
   overflow: scroll;
   padding-top: 30px;
+  padding-left: 50px;
+  padding-right: 50px;
+  border: 1px solid black;
+  border-radius: 10px;
 }
 .shopPage *{
-  margin-left: 40px;
-  margin-right: 40px;
   font-family: arial;
 }
 
@@ -153,9 +159,20 @@
 
 #shopPageVisible{
   position: absolute;
-  right: 0;
+  right: 20;
 
   animation-name: appear;
   animation-duration: 0.5s;
   animation-iteration-count: 1;
+}
+
+.shopPage #product{
+  background-color: rgba(185, 221, 227, 0.5);
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 40px;
+  border-radius: 20px;
+  width: auto;
+  height: auto;
+  margin-bottom: 40px;
 }
