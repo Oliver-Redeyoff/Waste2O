@@ -1,10 +1,10 @@
 @keyframes appear {
-  0%{right: -500}
+  0%{right: -510}
   100%{right: 20}
 }
 @keyframes disapear {
   0%{right: 20}
-  100%{right: -500}
+  100%{right: -510}
 }
 
 body{
@@ -54,7 +54,7 @@ body{
   width: auto;
 }
 
-#search {
+#searchBar {
   position: absolute;
   right: 40;
   top: 30px;
@@ -70,7 +70,7 @@ body{
   background-repeat: no-repeat;
   padding: 12px 20px 12px 40px;
 }
-#search:focus {
+#searchBar:focus {
   outline: none;
   border: none;
 }
@@ -135,8 +135,8 @@ body{
   top: 120;
   width: 400px;
   height: calc(100% - 220px);
-  background-color: rgba(226, 250, 250, 0.7);
-  color: black;
+  background-color: rgba(84, 84, 84, 0.7);
+  color: white;
   overflow: scroll;
   padding-top: 30px;
   padding-left: 50px;
@@ -147,11 +147,26 @@ body{
 .shopPage *{
   font-family: arial;
 }
+.shopPage h1{
+  width: auto;
+  color: rgba(124, 186, 204, 1);
+  font-weight: bold;
+  background-color: rgba(84, 84, 84, 1);
+  padding: 10px 10px 10px 10px;
+  border-radius: 5px;
+  margin-bottom: -10px;
+}
+
+#shopAddress{
+  margin-left: 20px;
+  margin-right: 20px;
+  opacity: 0.8;
+  margin-bottom: 40px;
+}
 
 #shopPageHidden{
   position: absolute;
-  right: -500;
-
+  right: -510;
   animation-name: disapear;
   animation-duration: 0.5s;
   animation-iteration-count: 1;
@@ -160,7 +175,6 @@ body{
 #shopPageVisible{
   position: absolute;
   right: 20;
-
   animation-name: appear;
   animation-duration: 0.5s;
   animation-iteration-count: 1;
@@ -175,4 +189,5 @@ body{
   width: auto;
   height: auto;
   margin-bottom: 40px;
+  color: rgb(242, 242, 242);
 }

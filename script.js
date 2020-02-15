@@ -1,11 +1,10 @@
 var startLocation = {lat: -25.344, lng: 131.036};
-var paris = {lat: 48.856613, lng: 2.352222};
+var currentPos;
 
 var styledMapType;
 var map;
 
-var currentPos;
-
+// initialises map and styles and positions it correctly.
 function initMap() {
 
   styledMapType = new google.maps.StyledMapType([
@@ -338,19 +337,6 @@ function initMap() {
       var userLocation = new google.maps.Marker({animation: google.maps.Animation.DROP, position: currentPos, icon: "assets/person.png", map: map, title:"test"});
       google.maps.event.addDomListener(map, 'click', function() {clearShopInfo()});
 
-      // fetch('https://europe-west2-waste2o-268013.cloudfunctions.net/allShops', {
-      //   mode: 'cors',
-      //   credentials: 'include',
-      //   method: "GET"
-      // })
-      //   .then((response) => {
-      //     console.log(response.json());
-      //     return response.json();
-      //   })
-      //   .then((data) => {
-      //     data.forEach(element => convertAndDrop(element));
-      //   });
-
       var request = new XMLHttpRequest();
       request.open('GET', 'https://europe-west2-waste2o-268013.cloudfunctions.net/allShops', true);
 
@@ -374,6 +360,7 @@ function initMap() {
 
 }
 
+// drops a marker at a given coordinate location
 function drop(title, position){
 	var newMarker = new google.maps.Marker({
     animation: google.maps.Animation.DROP,
@@ -384,21 +371,9 @@ function drop(title, position){
   google.maps.event.addDomListener(newMarker, 'click', function() {markerClick(newMarker)});
 }
 
-
+// geocodes address and drops a marker at that location
 function convertAndDrop(location){
   var request = new XMLHttpRequest()
-
-  // Open a new connection, using the GET request on the URL endpoint
-  // request.open('GET', 'https://maps.googleapis.com/maps/api/geocode/json?address=' + location.address + '&key=AIzaSyDSbrWA2sznywFet3dt4yodoLdTCLpVxJE', true)
-  //
-  // var data = null;
-  // request.onload = function () {
-  //   data = JSON.parse(this.response)
-  //   drop(location.name, data.results[0].geometry.location);
-  // }
-  //
-  // request.send()
-
   fetch('https://maps.googleapis.com/maps/api/geocode/json?address=' + location.address + '&key=AIzaSyDSbrWA2sznywFet3dt4yodoLdTCLpVxJE', {
     mode: 'cors',
     method: "GET"
@@ -411,12 +386,12 @@ function convertAndDrop(location){
     });
 }
 
-
+// decides the page to redirect to on click of the account icon
 function profileClick(){
   location.href = 'pages/ProfilePage.html';
 }
 
-
+// TODO: move code to function above
 function logIn(){
 	//document.cookie = "username=; expires=Thu, 18 Dec 2014 12:00:00 UTC; path=/";
   if(document.cookie == ""){
@@ -427,7 +402,8 @@ function logIn(){
 	console.log(document.cookie);
 }
 
-
+// makes the shopInfo tab appear and displays in it the info of the
+// chosen shop
 function markerClick(marker){
   console.log(marker.getTitle());
   if(document.getElementById("shopPageHidden")){
@@ -457,6 +433,11 @@ function markerClick(marker){
           "<p><a style='font-weight: bold'>Name : </a>" + data.products[product].name + "</p>" +
           "<p><a style='font-weight: bold'>Description : </a>" + data.products[product].description + "</p>" +
           "<p><a style='font-weight: bold'>Packaging : </a>" + data.products[product].packaging + "</p>" +
+          "<p><a style='font-weight: bold'>Rating : </a>" + data.products[product].rating + "</p>" +
+
+          "<p><a onclick='rate(\"" + data.address + "\", \"" + data.products[product].name + "\", \"up\")'>Upvote</a>" +
+          "<a onclick='rate(\"" + data.address + "\", \"" + data.products[product].name + "\", \"down\")'>Upvote</a></p>" +
+
           "</div>";
 
         document.getElementById("shopProducts").innerHTML += html;
@@ -465,11 +446,34 @@ function markerClick(marker){
 
 }
 
+// makes the shopInfo tab dissapear if it is visible
 function clearShopInfo(){
   if(document.getElementById("shopPageVisible")) {
     document.getElementById("shopPageVisible").id = "shopPageHidden";
   }
 }
+
+// updates the rating of a given product in the database
+function rate(address, productName, value){
+  console.log(address);
+  console.log(productName);
+  console.log(value);
+}
+
+// on submit of searchBar will center on the geocoded value of the searchBar
+function searchLocation(){
+  fetch('https://maps.googleapis.com/maps/api/geocode/json?address=' + document.getElementById("searchBar").value + '&key=AIzaSyDSbrWA2sznywFet3dt4yodoLdTCLpVxJE', {
+    mode: 'cors',
+    method: "GET"
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      map.setCenter(data.results[0].geometry.location);
+    });
+}
+
 
 // var shopInfoRequest = new XMLHttpRequest()
 // var body = JSON.stringify({address:"29 Shaftesbury Road Bath, Somerset"})

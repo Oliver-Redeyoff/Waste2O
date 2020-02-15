@@ -12,7 +12,9 @@
     <div class="header">
       <div class="profile" onclick="logIn()"><img src="assets/unknown.png"/></div>
       <img id="logo" src="assets/logo.png">
-      <input type="text" id="search" name="search" placeholder="Search">
+      <form onsubmit="event.preventDefault(); searchLocation()" action="#">
+        <input type="text" id="searchBar" name="search" placeholder="Search">
+      </form>
     </div>
 
     <div class="footer">
@@ -37,7 +39,7 @@
 
     <div class="shopPage" id="shopPageHidden">
       <h1 id="shopName">This is a Name</h1>
-      
+
       <p id="shopAddress">this is the address</p>
 
       <h2>Description :</h2>
