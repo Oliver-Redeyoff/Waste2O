@@ -161,7 +161,7 @@ body{
   margin-left: 20px;
   margin-right: 20px;
   opacity: 0.8;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
 }
 
 #shopPageHidden{
@@ -190,4 +190,34 @@ body{
   height: auto;
   margin-bottom: 40px;
   color: rgb(242, 242, 242);
+}
+
+.shopPage img{
+  width: 100%;
+  height: auto;
+  border-radius: 20px;
+  margin-bottom: 20px;
+}
+
+#rateUp{
+  padding: 10px 5px 10px 5px;
+  background-color: rgba(161, 217, 111, 0.7);
+  margin-right: 10px;
+  border-radius: 5px;
+  user-select: none;
+}
+#rateUp:hover{
+  padding: 11px 6px 11px 6px;
+  cursor: default;
+}
+
+#rateDown{
+  padding: 10px 5px 10px 5px;
+  background-color: rgba(217, 111, 193, 0.7);
+  border-radius: 5px;
+  user-select: none;
+}
+#rateDown:hover{
+  padding: 11px 6px 11px 6px;
+  cursor: default;
 }

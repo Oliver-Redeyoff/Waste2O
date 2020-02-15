@@ -342,7 +342,6 @@ function initMap() {
 
       request.onload = function() {
         var data = JSON.parse(this.response);
-        console.log(data);
         data.forEach(element => convertAndDrop(element));
       }
       request.send();
@@ -405,7 +404,6 @@ function logIn(){
 // makes the shopInfo tab appear and displays in it the info of the
 // chosen shop
 function markerClick(marker){
-  console.log(marker.getTitle());
   if(document.getElementById("shopPageHidden")){
     document.getElementById("shopPageHidden").id = "shopPageVisible";
   }
@@ -420,23 +418,22 @@ function markerClick(marker){
       return response.json();
     })
     .then((data) => {
-      console.log(data);
       document.getElementById("shopName").innerHTML = data.name;
-      document.getElementById("shopDescription").innerHTML = data.description;
       document.getElementById("shopAddress").innerHTML = data.address;
+      document.getElementById("shopPic").src = data.image;
+      document.getElementById("shopDescription").innerHTML = data.description;
       document.getElementById("shopProducts").innerHTML = "";
 
       for(product in data.products){
-        console.log(product);
         var html =
           "<div id='product'>" +
           "<p><a style='font-weight: bold'>Name : </a>" + data.products[product].name + "</p>" +
           "<p><a style='font-weight: bold'>Description : </a>" + data.products[product].description + "</p>" +
           "<p><a style='font-weight: bold'>Packaging : </a>" + data.products[product].packaging + "</p>" +
-          "<p><a style='font-weight: bold'>Rating : </a>" + data.products[product].rating + "</p>" +
+          "<p><a style='font-weight: bold'>Rating : </a><a id='" + data.products[product].name + "'>" + data.products[product].rating + "</a></p>" +
 
-          "<p><a onclick='rate(\"" + data.address + "\", \"" + data.products[product].name + "\", \"up\")'>Upvote</a>" +
-          "<a onclick='rate(\"" + data.address + "\", \"" + data.products[product].name + "\", \"down\")'>Upvote</a></p>" +
+          "<p><a id='rateUp' onclick='rate(\"" + data.address + "\", \"" + data.products[product].name + "\", \"up\")'>Upvote</a>" +
+          "<a id='rateDown' onclick='rate(\"" + data.address + "\", \"" + data.products[product].name + "\", \"down\")'>Downvote</a></p>" +
 
           "</div>";
 
@@ -454,10 +451,28 @@ function clearShopInfo(){
 }
 
 // updates the rating of a given product in the database
-function rate(address, productName, value){
-  console.log(address);
-  console.log(productName);
-  console.log(value);
+function rate(shopAddress, productName, value){
+  fetch('https://europe-west2-waste2o-268013.cloudfunctions.net/ratings', {
+    body: JSON.stringify(
+      {
+        address:shopAddress,
+        product:productName,
+        rating:value
+      }
+    ),
+    headers: {"Content-Type": "application/json"},
+    mode: 'cors',
+    method: "POST"
+  })
+    .then((response) => {
+      if(value == "up"){
+        document.getElementById(productName).innerHTML = (parseInt(document.getElementById(productName).innerHTML) + 1);
+      } else {
+        document.getElementById(productName).innerHTML = (parseInt(document.getElementById(productName).innerHTML) - 1);
+      }
+      return response.json();
+    })
+
 }
 
 // on submit of searchBar will center on the geocoded value of the searchBar
@@ -473,15 +488,3 @@ function searchLocation(){
       map.setCenter(data.results[0].geometry.location);
     });
 }
-
-
-// var shopInfoRequest = new XMLHttpRequest()
-// var body = JSON.stringify({address:"29 Shaftesbury Road Bath, Somerset"})
-// console.log(body)
-// shopInfoRequest.open("POST", "https://us-central1-waste2o-268013.cloudfunctions.net/fetchShopDetails");
-// var shopInfo = null;
-// shopInfoRequest.send(body);
-// shopInfoRequest.onload = function () {
-// 	shopInfo = JSON.parse(this.response)
-//   console.log(shopInfo);
-// }
