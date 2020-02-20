@@ -199,25 +199,25 @@ body{
   margin-bottom: 20px;
 }
 
-#rateUp{
+.rateUp{
   padding: 10px 5px 10px 5px;
   background-color: rgba(161, 217, 111, 0.7);
   margin-right: 10px;
   border-radius: 5px;
   user-select: none;
 }
-#rateUp:hover{
+.rateUp:hover{
   padding: 11px 6px 11px 6px;
   cursor: default;
 }
 
-#rateDown{
+.rateDown{
   padding: 10px 5px 10px 5px;
   background-color: rgba(217, 111, 193, 0.7);
   border-radius: 5px;
   user-select: none;
 }
-#rateDown:hover{
+.rateDown:hover{
   padding: 11px 6px 11px 6px;
   cursor: default;
 }

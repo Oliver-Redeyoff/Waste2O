@@ -432,8 +432,8 @@ function markerClick(marker){
           "<p><a style='font-weight: bold'>Packaging : </a>" + data.products[product].packaging + "</p>" +
           "<p><a style='font-weight: bold'>Rating : </a><a id='" + data.products[product].name + "'>" + data.products[product].rating + "</a></p>" +
 
-          "<p><a id='rateUp' onclick='rate(\"" + data.address + "\", \"" + data.products[product].name + "\", \"up\")'>Upvote</a>" +
-          "<a id='rateDown' onclick='rate(\"" + data.address + "\", \"" + data.products[product].name + "\", \"down\")'>Downvote</a></p>" +
+          "<p><a class='rateUp' id='" + data.products[product].name + "Upvote' onclick='rate(\"" + data.address + "\", \"" + data.products[product].name + "\", \"up\")'>Upvote</a>" +
+          "<a class='rateDown' id='" + data.products[product].name + "Downvote' onclick='rate(\"" + data.address + "\", \"" + data.products[product].name + "\", \"down\")'>Downvote</a></p>" +
 
           "</div>";
 
@@ -467,8 +467,12 @@ function rate(shopAddress, productName, value){
     .then((response) => {
       if(value == "up"){
         document.getElementById(productName).innerHTML = (parseInt(document.getElementById(productName).innerHTML) + 1);
+        document.getElementById(productName+"Upvote").onclick = "";
+        document.getElementById(productName+"Upvote").style.backgroundColor = "rgba(125, 164, 90, 0.7)";
       } else {
         document.getElementById(productName).innerHTML = (parseInt(document.getElementById(productName).innerHTML) - 1);
+        document.getElementById(productName+"Downvote").onclick = "";
+        document.getElementById(productName+"Downvote").style.backgroundColor = "rgba(158, 83, 141, 0.7)";
       }
       return response.json();
     })
