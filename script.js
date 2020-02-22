@@ -4,6 +4,7 @@ var currentPos;
 var styledMapType;
 var map;
 
+
 // initialises map and styles and positions it correctly.
 function initMap() {
 
@@ -359,6 +360,7 @@ function initMap() {
 
 }
 
+
 // drops a marker at a given coordinate location
 function drop(title, position){
 	var newMarker = new google.maps.Marker({
@@ -369,6 +371,7 @@ function drop(title, position){
   });
   google.maps.event.addDomListener(newMarker, 'click', function() {markerClick(newMarker)});
 }
+
 
 // geocodes address and drops a marker at that location
 function convertAndDrop(location){
@@ -385,10 +388,12 @@ function convertAndDrop(location){
     });
 }
 
+
 // decides the page to redirect to on click of the account icon
 function profileClick(){
   location.href = 'pages/ProfilePage.html';
 }
+
 
 // TODO: move code to function above
 function logIn(){
@@ -400,6 +405,7 @@ function logIn(){
   }
 	console.log(document.cookie);
 }
+
 
 // makes the shopInfo tab appear and displays in it the info of the
 // chosen shop
@@ -439,14 +445,23 @@ function markerClick(marker){
 
         document.getElementById("shopProducts").innerHTML += html;
       }
+
+      if(document.getElementById("newProductVisible")){
+        document.getElementById("newProductVisible").id = "newProductHidden";
+      }
+
     });
 
 }
+
 
 // makes the shopInfo tab dissapear if it is visible
 function clearShopInfo(){
   if(document.getElementById("shopPageVisible")) {
     document.getElementById("shopPageVisible").id = "shopPageHidden";
+  }
+  if(document.getElementById("newProductVisible")){
+    document.getElementById("newProductVisible").id = "newProductHidden";
   }
 }
 
@@ -491,4 +506,10 @@ function searchLocation(){
     .then((data) => {
       map.setCenter(data.results[0].geometry.location);
     });
+}
+
+
+// add product to a certain shop
+function newProduct(address){
+  document.getElementById("newProductHidden").id = "newProductVisible";
 }
