@@ -5,6 +5,12 @@ var styledMapType;
 var map;
 
 
+document.addEventListener('DOMContentLoaded', function() {
+  console.log(document.cookie)
+   checkCookie();
+}, false);
+
+
 // initialises map and styles and positions it correctly.
 function initMap() {
 
@@ -372,7 +378,6 @@ function drop(title, position){
   google.maps.event.addDomListener(newMarker, 'click', function() {markerClick(newMarker)});
 }
 
-
 // geocodes address and drops a marker at that location
 function convertAndDrop(location){
   var request = new XMLHttpRequest()
@@ -391,19 +396,22 @@ function convertAndDrop(location){
 
 // decides the page to redirect to on click of the account icon
 function profileClick(){
-  location.href = 'pages/ProfilePage.html';
-}
-
-
-// TODO: move code to function above
-function logIn(){
-	//document.cookie = "username=; expires=Thu, 18 Dec 2014 12:00:00 UTC; path=/";
-  if(document.cookie == ""){
+  //document.cookie = "username=; expires=Thu, 18 Dec 2014 12:00:00 UTC; path=/";
+  if(getCookie("email") == ""){
     location.href = "pages/SignIn.html"
   } else {
     location.href = "pages/ProfilePage.html"
   }
-	console.log(document.cookie);
+}
+
+
+// TODO: move code to function above
+function checkCookie(){
+  console.log(getCookie("email"))
+  if(getCookie("email") != ""){
+    console.log("yo")
+    document.getElementById("profileImage").src = "Assets/signedin.png";
+  }
 }
 
 
@@ -511,5 +519,36 @@ function searchLocation(){
 
 // add product to a certain shop
 function newProduct(address){
-  document.getElementById("newProductHidden").id = "newProductVisible";
+  if(document.getElementById("newProductHidden")){
+    document.getElementById("newProductHidden").id = "newProductVisible";
+  } else {
+    document.getElementById("newProductVisible").id = "newProductHidden";
+  }
+}
+
+
+// function which creates cookie with name, value and expiration date in certain amount of days
+function setCookie(cname, cvalue, exdays) {
+  var d = new Date();
+  d.setTime(d.getTime() + (exdays*24*60*60*1000));
+  var expires = "expires="+ d.toUTCString();
+  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
+
+// function which gets value of cookie with certain name
+function getCookie(cname) {
+  var name = cname + "=";
+  var decodedCookie = decodeURIComponent(document.cookie);
+  var ca = decodedCookie.split(';');
+  for(var i = 0; i <ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
 }

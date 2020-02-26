@@ -2,19 +2,20 @@
   <head>
     <meta charset = "utf-8" />
     <link rel="stylesheet" type="text/css" href="styleSignInUp.css" />
-    <script src="script.js"></script>
+    <script src="SignUp.js"></script>
   </head>
 
   <body>
     <h1>Create an account</h1>
     <div class="container">
-      <form>
-      <input type="text" id="email" placeholder="email">
-      <input type="text" id="username" placeholder="username">
-      <input type="text" id="password" placeholder="password">
-      <input type="text" id="password" placeholder="confirm password">
-      <button type="button" id="submit">Sign up</button>
-    </form>
-  </div>
+      <form onsubmit="event.preventDefault();" action="#">
+        <input type="text" id="email" placeholder="email">
+        <!--<input type="text" id="username" placeholder="username">-->
+        <input type="password" id="password" placeholder="password">
+        <input type="password" id="passwordConfirm" placeholder="confirm password">
+        <p id="message"></p>
+        <button type="button" id="submitSignUp" onclick="createAccount()">Sign up</button>
+      </form>
+    </div>
   </body>
 </html>

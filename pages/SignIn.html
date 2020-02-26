@@ -2,15 +2,17 @@
   <head>
     <meta charset = "utf-8" />
     <link rel="stylesheet" type="text/css" href="styleSignInUp.css" />
-    <script src="script.js"></script>
+    <script src="SignIn.js"></script>
   </head>
 
   <body>
-    <h1>You made it to sign in</h1>
+    <h1 onclick="test()">Sign in</h1>
     <div class="container">
-      <form>
+      <form onsubmit="event.preventDefault();" action="#">
         <input type="email" id="email" placeholder="email">
         <input type="password" id="password" placeholder="password">
+        <p id="message"></p>
+        <button type="submit" id="submitSignIn" onclick="checkAccount()">Sign in</button>
       </form>
       <p>Haven't got an account? <a href="SignUp.html">Sign up</a></p>
       <!--Added by Roby-->

@@ -10,7 +10,7 @@
     <div id="map"></div>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDSbrWA2sznywFet3dt4yodoLdTCLpVxJE&callback=initMap"></script>
     <div class="header">
-      <div class="profile" onclick="logIn()"><img src="assets/unknown.png"/></div>
+      <div class="profile" onclick="profileClick()"><img src="Assets/signin.png" id="profileImage"></div>
       <img id="logo" src="assets/logo.png">
       <form onsubmit="event.preventDefault(); searchLocation()" action="#">
         <input type="text" id="searchBar" name="search" placeholder="Search">
@@ -55,11 +55,11 @@
 
     <div class="newProductPage" id="newProductHidden">
       <h1>Add new product</h1>
-      <h2>Name :</h2>
-      <h2>Description :</h2>
-      <h2>Packaging :</h2>
-      <h2>Tags :</h2>
-      
+      <label>Name :</label><input></input><br>
+      <label>Description :</label><br><textarea></textarea><br>
+      <label>Packaging :</label><input></input><br>
+      <label>Tags :</label><input></input><br>
+      <button>Add Product</button>
     </div>
 
 

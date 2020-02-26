@@ -35,7 +35,7 @@ h1{
   border: none;
 }
 
-.container button{
+#submitSignUp{
   width: calc(100% - 20px);
   height: 60px;
   margin-left: 10px;
@@ -47,7 +47,23 @@ h1{
   background-color: rgba(150, 195, 203, 0.3);
   text-decoration: none;
 }
-.container button:hover{
+#submitSignUp:hover{
+  background-color: rgba(150, 195, 203, 0.5);
+}
+
+#submitSignIn{
+  width: 200px;
+  height: 40px;
+  margin-left: 35%;
+  margin-bottom: 30px;
+  margin-top: 20px;
+  border: none;
+  border-radius: 10px;
+  font-size: 24px;
+  background-color: rgba(150, 195, 203, 0.3);
+  text-decoration: none;
+}
+#submitSignIn:hover{
   background-color: rgba(150, 195, 203, 0.5);
 }
 
@@ -58,6 +74,9 @@ h1{
   background-image: url('../assets/userIcon.png');
 }
 #password {
+  background-image: url('../assets/passIcon.png');
+}
+#passwordConfirm {
   background-image: url('../assets/passIcon.png');
 }
 
@@ -74,4 +93,13 @@ h1{
 }
 .container a:hover{
   cursor: pointer;
+}
+
+#message{
+  text-align: center;
+  font-family: arial;
+  font-size: 18px;
+  display: none;
+  margin-bottom: -60px;
+  color: red;
 }
