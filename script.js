@@ -6,8 +6,7 @@ var map;
 
 
 document.addEventListener('DOMContentLoaded', function() {
-  console.log(document.cookie)
-   checkCookie();
+  checkCookie();
 }, false);
 
 
@@ -407,10 +406,10 @@ function profileClick(){
 
 // TODO: move code to function above
 function checkCookie(){
-  console.log(getCookie("email"))
+  console.log("The email cookie is : " + getCookie("email"))
   if(getCookie("email") != ""){
     console.log("yo")
-    document.getElementById("profileImage").src = "Assets/signedin.png";
+    document.getElementById("profileText").innerHTML = "View profile";
   }
 }
 

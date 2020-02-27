@@ -2,6 +2,7 @@
 
   <head>
     <meta charset = "utf-8" />
+    <title>Waste2o</title>
     <link rel="stylesheet" type="text/css" href="style.css" />
     <script src="script.js"></script>
   </head>
@@ -10,7 +11,8 @@
     <div id="map"></div>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDSbrWA2sznywFet3dt4yodoLdTCLpVxJE&callback=initMap"></script>
     <div class="header">
-      <div class="profile" onclick="profileClick()"><img src="Assets/signin.png" id="profileImage"></div>
+      <div class="profile" id="profileContainer" onclick="profileClick()"><a id="profileText">Sign in</p></div>
+      <!--<img src="Assets/signin.png" id="profileImage">-->
       <img id="logo" src="assets/logo.png">
       <form onsubmit="event.preventDefault(); searchLocation()" action="#">
         <input type="text" id="searchBar" name="search" placeholder="Search">
