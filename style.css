@@ -17,14 +17,16 @@
 }
 
 @keyframes notification {
-  0%{opacity: 100%; z-index: 2}
-  75%{opacity: 100%; z-index: 2}
-  100%{opacity: 0%; z-index: -1}
+  0%{left: -250px}
+  20%{left: 20}
+  80%{left: 20px}
+  100%{left: -250px}
 }
 @keyframes notification2 {
-  0%{opacity: 99%; z-index: 2}
-  75%{opacity: 100%; z-index: 2}
-  100%{opacity: 0%; z-index: -1}
+  0%{left: -250px}
+  20%{left: 20px}
+  80%{left: 20px}
+  100%{left: -250px}
 }
 
 body{
@@ -103,21 +105,23 @@ body{
 
 
 .notification{
-  opacity: 0%;
-  z-index: -1;
+  z-index: 2;
   position: absolute;
-  color: white;
+  color: rgba(179, 233, 249, 1);
   font-family: Arial;
-  text-align: center;
-  background-color: rgba(0, 0, 0, 0.5);
-  width: 200px;
+  background-color: rgba(70, 70, 70, 0.5);
+  width: auto;
   height: auto;
-  left: calc(50% - 100px);
-  top: calc(50% - 100px);
-  border-radius: 20px;
+  left: -250px;
+  top: 120px;
+  border-radius: 10px;
 }
 .notification h1{
-  margin-bottom: 0px;
+  font-size: 18px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
 .notification img{
   width: 100px;

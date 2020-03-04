@@ -356,7 +356,7 @@ function initMap() {
       map.zoom = 13;
 
     }, function() {
-      handleLocationError(true, infoWindow, map.getCenter());
+      //handleLocationError(true, infoWindow, map.getCenter());
     });
 
   } else {
@@ -413,6 +413,7 @@ function checkCookie(){
     setCookie("notMess", "You are signed in", 1)
     document.getElementById("profileText").innerHTML = "Sign out";
   }
+  notification()
 }
 
 
@@ -605,7 +606,7 @@ function addProduct(){
         console.log(response)
         if(response.statusText=="OK"){
           console.log("created and added product")
-          setCookie("notMess", "You are signed in", 1)
+          setCookie("notMess", "Added new product", 1)
           notification()
           clearShopInfo()
         } else {
@@ -618,7 +619,9 @@ function addProduct(){
 
 // displays notification with cookie as it's message
 function notification(){
+  console.log(getCookie("notMess"))
   document.getElementById("notificationMessage").innerHTML = getCookie("notMess")
+
   if(document.getElementById("not1")){
     document.getElementById("not1").id = "not2"
   } else{
