@@ -25,7 +25,7 @@ h1{
   border-radius: 4px;
   font-size: 16px;
   background-color: white;
-  background-image: url('../assets/emailIcon.png');
+  background-image: url('../Assets/emailIcon.png');
   background-position: 10px 10px;
   background-repeat: no-repeat;
   padding: 12px 20px 12px 40px;
@@ -68,16 +68,16 @@ h1{
 }
 
 #email {
-  background-image: url('../assets/emailIcon.png');
+  background-image: url('../Assets/emailIcon.png');
 }
 #username{
-  background-image: url('../assets/userIcon.png');
+  background-image: url('../Assets/userIcon.png');
 }
 #password {
-  background-image: url('../assets/passIcon.png');
+  background-image: url('../Assets/passIcon.png');
 }
 #passwordConfirm {
-  background-image: url('../assets/passIcon.png');
+  background-image: url('../Assets/passIcon.png');
 }
 
 
