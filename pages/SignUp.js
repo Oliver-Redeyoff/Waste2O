@@ -29,6 +29,7 @@ function createAccount(){
         if(response.statusText=="OK"){
           console.log("created account")
           setCookie("email", email.value, 100)
+          setCookie("notMess", "You are signed in", 1)
           location.href = "../index.html"
         } else {
           console.log("didn't create account")

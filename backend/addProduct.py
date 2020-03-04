@@ -26,7 +26,7 @@ def add_product(request):
     headers = {
         'Access-Control-Allow-Origin': '*',
     }
-    
+
     try:
         product_type = request_json.get("type", "")
         name = request_json.get("name", "")
@@ -35,28 +35,28 @@ def add_product(request):
         packaging = request_json.get("packaging", "")
         owner_added = request_json.get("ownerAdded", "")
         address = request_json.get("address", "")
-        
-        
+
+
         if product_type == "" or name == "" or description == "" or tags == "" or packaging == "" or owner_added == "" or address == "":
             return('invalid-request', 400, headers)
-        
+
         db = firestore.Client()
         collection_name = "shops"
-        
+
         doc = db.collection(collection_name).document(address).get()
-        
+
         if not doc.exists:
             return('invalid-shop', 400, headers)
-        
+
         dic = doc.to_dict()
-        
+
         for prod in dic["products"]:
             if prod["name"] == name:
                 return('product-exists', 400, headers)
-        
+
         productDict = {"type": product_type, "name": name, "description": description, "tags": tags, "packaging": packaging, "rating": 0, "owner_added": owner_added}
         dic["products"].append(productDict)
-        
+
         db.collection(collection_name).document(address).set(dic)
         return('success', 200, headers)
     except Exception as e:

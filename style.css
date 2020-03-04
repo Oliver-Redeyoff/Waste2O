@@ -16,9 +16,21 @@
   100%{right: -410}
 }
 
+@keyframes notification {
+  0%{opacity: 100%; z-index: 2}
+  75%{opacity: 100%; z-index: 2}
+  100%{opacity: 0%; z-index: -1}
+}
+@keyframes notification2 {
+  0%{opacity: 99%; z-index: 2}
+  75%{opacity: 100%; z-index: 2}
+  100%{opacity: 0%; z-index: -1}
+}
+
 body{
   overflow: hidden;
 }
+
 
 #map{
   position: absolute;
@@ -28,6 +40,7 @@ body{
   width: 100%;
   height: 100%;
 }
+
 
 .header{
   position: absolute;
@@ -59,11 +72,6 @@ body{
   padding-top: 12px;
 }
 
-.profile img{
-  width: 100%;
-  height: auto;
-}
-
 #logo{
   position: absolute;
   left: calc(50% - 100px);
@@ -93,58 +101,38 @@ body{
   border: none;
 }
 
-.footer{
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 50px;
-  background-color: rgba(226, 250, 250, 0.7);
-}
 
-.footer h1{
+.notification{
+  opacity: 0%;
+  z-index: -1;
   position: absolute;
+  color: white;
+  font-family: Arial;
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 200px;
+  height: auto;
+  left: calc(50% - 100px);
+  top: calc(50% - 100px);
+  border-radius: 20px;
+}
+.notification h1{
   margin-bottom: 0px;
-  font-size: 24px;
-  font-family: arial;
-  font-weight: bold;
-  bottom: 10;
-  left: 20;
-  padding: 0px;
 }
-.footer p{
-  position: absolute;
-  bottom: 18;
-  margin-bottom: 0px;
-  height: 20px;
-  font-size: 20px;
-  font-family: arial;
+.notification img{
+  width: 100px;
+  height: auto;
+  margin-bottom: 10px;
 }
-
-#tagFilterLabel{
-  left: 20%;
+#not1{
+  animation-name: notification;
+  animation-duration: 3s;
+  animation-iteration-count: 1;
 }
-#tagFilter{
-  position: absolute;
-  height: 20px;
-  bottom: 15;
-  border-radius: 0px;
-  border: 1px solid black;
-  background-color: white;
-  left: calc(20% + 50px);
-}
-
-#packagingFilterLabel{
-  left: 40%;
-}
-#packagingFilter{
-  position: absolute;
-  height: 20px;
-  bottom: 15;
-  border-radius: 0px;
-  border: 1px solid black;
-  background-color: white;
-  left: calc(40% + 110px);
+#not2{
+  animation-name: notification2;
+  animation-duration: 3s;
+  animation-iteration-count: 1;
 }
 
 
@@ -284,11 +272,15 @@ body{
   animation-iteration-count: 1;
 }
 
+
+.newProductPage h1{
+  color: rgba(124, 186, 204, 1);
+}
 .newProductPage label{
   margin-bottom: 20px;
+  font-size: 18px;
 }
 .newProductPage input{
-  margin-left: 10px;
   margin-bottom: 20px;
 }
 .newProductPage textarea{

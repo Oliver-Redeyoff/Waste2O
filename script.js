@@ -399,17 +399,19 @@ function profileClick(){
   if(getCookie("email") == ""){
     location.href = "pages/SignIn.html"
   } else {
-    location.href = "pages/ProfilePage.html"
+    setCookie("email", "", -1)
+    location.reload()
   }
 }
 
 
 // TODO: move code to function above
 function checkCookie(){
+  setCookie("notMess", "Welcome to Waste2O", 1)
   console.log("The email cookie is : " + getCookie("email"))
   if(getCookie("email") != ""){
-    console.log("yo")
-    document.getElementById("profileText").innerHTML = "View profile";
+    setCookie("notMess", "You are signed in", 1)
+    document.getElementById("profileText").innerHTML = "Sign out";
   }
 }
 
@@ -491,10 +493,14 @@ function rate(shopAddress, productName, value){
         document.getElementById(productName).innerHTML = (parseInt(document.getElementById(productName).innerHTML) + 1);
         document.getElementById(productName+"Upvote").onclick = "";
         document.getElementById(productName+"Upvote").style.backgroundColor = "rgba(125, 164, 90, 0.7)";
+        setCookie("notMess", "Product upvoted", 1)
+        notification()
       } else {
         document.getElementById(productName).innerHTML = (parseInt(document.getElementById(productName).innerHTML) - 1);
         document.getElementById(productName+"Downvote").onclick = "";
         document.getElementById(productName+"Downvote").style.backgroundColor = "rgba(158, 83, 141, 0.7)";
+        setCookie("notMess", "Product downvoted", 1)
+        notification()
       }
       return response.json();
     })
@@ -550,4 +556,72 @@ function getCookie(cname) {
     }
   }
   return "";
+}
+
+// function adds a product based on user input
+function addProduct(){
+
+  console.log("adding product")
+
+  //var type = document.getElementById("typeInput").value
+  var name = document.getElementById("nameInput").value
+  var description = document.getElementById("descriptionInput").value
+  var packaging = document.getElementById("packagingInput").value
+  var tags = document.getElementById("tagsInput").value.split(", ")
+  var address = document.getElementById("shopAddress").innerHTML
+  console.log(address)
+
+  if(name == "" || description == "" || packaging == "" || tags.length == 0){
+    return
+  } else {
+    console.log(JSON.stringify(
+      {
+        type: "test",
+        name: name,
+        description: description,
+        tags: tags,
+        packaging: packaging,
+        ownerAdded: true,
+        address: address
+      }))
+    // post the product to the database
+    fetch('https://europe-west2-waste2o-268013.cloudfunctions.net/addProduct', {
+      body: JSON.stringify(
+        {
+          type: "test",
+          name: name,
+          description: description,
+          tags: tags,
+          packaging: packaging,
+          ownerAdded: true,
+          address: address
+        }
+      ),
+      headers: {"Content-Type": "application/json"},
+      mode: 'cors',
+      method: "POST"
+    })
+      .then((response) => {
+        console.log(response)
+        if(response.statusText=="OK"){
+          console.log("created and added product")
+          setCookie("notMess", "You are signed in", 1)
+          notification()
+          clearShopInfo()
+        } else {
+          console.log("didn't create and add product")
+        }
+      })
+  }
+}
+
+
+// displays notification with cookie as it's message
+function notification(){
+  document.getElementById("notificationMessage").innerHTML = getCookie("notMess")
+  if(document.getElementById("not1")){
+    document.getElementById("not1").id = "not2"
+  } else{
+    document.getElementById("not2").id = "not1"
+  }
 }

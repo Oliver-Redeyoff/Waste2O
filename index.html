@@ -8,36 +8,26 @@
   </head>
 
   <body>
+
+
     <div id="map"></div>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDSbrWA2sznywFet3dt4yodoLdTCLpVxJE&callback=initMap"></script>
+
+
     <div class="header">
       <div class="profile" id="profileContainer" onclick="profileClick()"><a id="profileText">Sign in</p></div>
-      <!--<img src="Assets/signin.png" id="profileImage">-->
       <img id="logo" src="Assets/logo.png">
       <form onsubmit="event.preventDefault(); searchLocation()" action="#">
-        <input type="text" id="searchBar" name="search" placeholder="Search">
+        <input type="text" id="searchBar" name="search" placeholder="Search location">
       </form>
     </div>
 
-    <div class="footer">
-      <h1>Filter by :</h1>
 
-      <p id="tagFilterLabel">Tag :</p>
-      <select id="tagFilter">
-        <option>Vegan</option>
-        <option>Spicy</option>
-        <option>Vegetarian</option>
-        <option>Meat</option>
-      </select>
-
-      <p id="packagingFilterLabel">Packaging :</p>
-      <select id="packagingFilter">
-        <option>Glass</option>
-        <option>Paper</option>
-        <option>Bring your own</option>
-        <option>Carboard</option>
-      </select>
+    <div class="notification" id="not1">
+      <h1 id="notificationMessage">Added new product</h1>
+      <img src="Assets/check.png"/>
     </div>
+
 
     <div class="shopPage" id="shopPageHidden">
       <h1 id="shopName">This is a Name</h1>
@@ -55,13 +45,16 @@
       <p id="addProduct" onclick="newProduct()">Add product</p>
     </div>
 
+
     <div class="newProductPage" id="newProductHidden">
       <h1>Add new product</h1>
-      <label>Name :</label><input></input><br>
-      <label>Description :</label><br><textarea></textarea><br>
-      <label>Packaging :</label><input></input><br>
-      <label>Tags :</label><input></input><br>
-      <button>Add Product</button>
+      <form>
+        <label>Name :</label><br><input id="nameInput"></input><br>
+        <label>Description :</label><br><textarea id="descriptionInput"></textarea><br>
+        <label>Packaging :</label><br><input id="packagingInput"></input><br>
+        <label>Tags :</label><br><input id="tagsInput"></input><br>
+      </form>
+      <button onclick="addProduct()">Add Product</button>
     </div>
 
 
