@@ -400,6 +400,7 @@ function profileClick(){
     location.href = "pages/SignIn.html"
   } else {
     setCookie("email", "", -1)
+    setCookie("notMess", "Signed out", 1)
     location.reload()
   }
 }
@@ -407,8 +408,8 @@ function profileClick(){
 
 // TODO: move code to function above
 function checkCookie(){
-  setCookie("notMess", "Welcome to Waste2O", 1)
   console.log("The email cookie is : " + getCookie("email"))
+  console.log(getCookie("notMess"))
   if(getCookie("email") != ""){
     setCookie("notMess", "You are signed in", 1)
     document.getElementById("profileText").innerHTML = "Sign out";
