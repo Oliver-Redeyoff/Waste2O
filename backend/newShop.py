@@ -26,29 +26,27 @@ def add_shop(request):
     headers = {
         'Access-Control-Allow-Origin': '*',
     }
-    
+
     try:
         address = request_json.get("address", "")
         name = request_json.get("name", "")
         description = request_json.get("description", "")
         image = request_json.get("image", "")
-        
+
         if address == "" or name == "" or description == "" or image == "":
             return('invalid-request', 400, headers)
-        
+
         db = firestore.Client()
         collection_name = "shops"
-        
+
         doc = db.collection(collection_name).document(address).get()
-        
+
         if doc.exists:
             return('shop-exists', 400, headers)
-        
+
         newShop = {"address": address, "name": name, "description": description, "image": image, "products": []}
         db.collection(collection_name).document(address).set(newShop)
-        
+
         return('success', 200, headers)
     except Exception as e:
         return(str(e), 400, headers)
-    
-    

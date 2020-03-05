@@ -421,6 +421,11 @@ function checkCookie(){
 // makes the shopInfo tab appear and displays in it the info of the
 // chosen shop
 function markerClick(marker){
+
+  if(document.getElementById("addShopVisible")){
+    return
+  }
+
   if(document.getElementById("shopPageHidden")){
     document.getElementById("shopPageHidden").id = "shopPageVisible";
   }
@@ -473,6 +478,9 @@ function clearShopInfo(){
   }
   if(document.getElementById("newProductVisible")){
     document.getElementById("newProductVisible").id = "newProductHidden";
+  }
+  if(document.getElementById("addShopVisible")){
+    document.getElementById("addShopVisible").id = "addShopHidden";
   }
 }
 
@@ -618,10 +626,23 @@ function addProduct(){
 }
 
 
+// toggles visibility of addShop window
+function toggleAddShop(){
+  clearShopInfo()
+  if(document.getElementById("addShopHidden")){
+    document.getElementById("addShopHidden").id = "addShopVisible"
+  } else {
+    document.getElementById("addShopVisible").id = "addShopHidden"
+  }
+}
+
+
 // displays notification with cookie as it's message
 function notification(){
   console.log(getCookie("notMess"))
-  document.getElementById("notificationMessage").innerHTML = getCookie("notMess")
+  if(getCookie("notMess") != ""){
+    document.getElementById("notificationMessage").innerHTML = getCookie("notMess")
+  }
 
   if(document.getElementById("not1")){
     document.getElementById("not1").id = "not2"

@@ -45,6 +45,17 @@
       <p id="addProduct" onclick="newProduct()">Add product</p>
     </div>
 
+    <div id="addShopButtonContainer" onclick="toggleAddShop()"><a id="addShopButtonText">Add shop</a></div>
+    <div class="addShop" id="addShopHidden">
+      <h1>Add new shop</h1>
+      <form>
+        <label>Name :</label><br><input id="shopNameInput"></input><br>
+        <label>Description :</label><br><textarea id="shopDescriptionInput"></textarea><br>
+        <label>Address :</label><br><input id="shopAddressInput"></input><br>
+        <label>Image link :</label><br><input id="shopImgInput"></input><br>
+      </form>
+    </div>
+
 
     <div class="newProductPage" id="newProductHidden">
       <h1>Add new product</h1>
