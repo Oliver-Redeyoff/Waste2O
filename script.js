@@ -332,6 +332,14 @@ function initMap() {
   map.mapTypes.set('styled_map', styledMapType);
   map.setMapTypeId('styled_map');
 
+  var request = new XMLHttpRequest();
+  request.open('GET', 'https://europe-west2-waste2o-268013.cloudfunctions.net/allShops', true);
+
+  request.onload = function() {
+    var data = JSON.parse(this.response);
+    data.forEach(element => convertAndDrop(element));
+  }
+  request.send();
 
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(position) {
@@ -342,15 +350,6 @@ function initMap() {
 
       var userLocation = new google.maps.Marker({animation: google.maps.Animation.DROP, position: currentPos, icon: "assets/person.png", map: map, title:"test"});
       google.maps.event.addDomListener(map, 'click', function() {clearShopInfo()});
-
-      var request = new XMLHttpRequest();
-      request.open('GET', 'https://europe-west2-waste2o-268013.cloudfunctions.net/allShops', true);
-
-      request.onload = function() {
-        var data = JSON.parse(this.response);
-        data.forEach(element => convertAndDrop(element));
-      }
-      request.send();
 
       map.setCenter(currentPos);
       map.zoom = 13;
@@ -639,12 +638,23 @@ function addProduct(){
 
 // toggles visibility of addShop window
 function toggleAddShop(){
-  clearShopInfo()
+  if(document.getElementById("shopPageVisible")) {
+    document.getElementById("shopPageVisible").id = "shopPageHidden";
+  }
+  if(document.getElementById("newProductVisible")){
+    document.getElementById("newProductVisible").id = "newProductHidden";
+  }
+  
   if(document.getElementById("addShopInitial")){
+    console.log("initial")
     document.getElementById("addShopInitial").id = "addShopVisible"
-  } else if(document.getElementById("addShopHidden")){
+  }
+  else if(document.getElementById("addShopHidden")){
+    console.log("hidden")
     document.getElementById("addShopHidden").id = "addShopVisible"
-  } else {
+  }
+  else if(document.getElementById("addShopVisible")){
+    console.log("visible")
     document.getElementById("addShopVisible").id = "addShopHidden"
   }
 }
