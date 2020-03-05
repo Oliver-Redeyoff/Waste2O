@@ -219,6 +219,10 @@ body{
   margin-bottom: 30px;
 }
 
+#addShopInitial{
+  position: absolute;
+  bottom: -1000px;
+}
 #addShopVisible{
   position: absolute;
   bottom: 50px;
@@ -226,7 +230,6 @@ body{
   animation-duration: 0.7s;
   animation-iteration-count: 1;
 }
-
 #addShopHidden{
   position: absolute;
   bottom: -1000px;
@@ -268,6 +271,10 @@ body{
   margin-bottom: 20px;
 }
 
+#shopPageInitial{
+  position: absolute;
+  right: -510;
+}
 #shopPageHidden{
   position: absolute;
   right: -510;
@@ -275,7 +282,6 @@ body{
   animation-duration: 0.5s;
   animation-iteration-count: 1;
 }
-
 #shopPageVisible{
   position: absolute;
   right: 20;
@@ -355,7 +361,10 @@ body{
   font-family: arial;
 }
 
-
+#newProductInitial{
+  position: absolute;
+  right: -410;
+}
 #newProductHidden{
   position: absolute;
   right: -410;
@@ -363,7 +372,6 @@ body{
   animation-duration: 0.5s;
   animation-iteration-count: 1;
 }
-
 #newProductVisible{
   position: absolute;
   right: 540;

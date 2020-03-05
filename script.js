@@ -413,21 +413,28 @@ function checkCookie(){
   if(getCookie("email") != ""){
     setCookie("notMess", "You are signed in", 1)
     document.getElementById("profileText").innerHTML = "Sign out";
+  } else {
+    if(getCookie("notMess") != "Signed out"){
+      setCookie("notMess", "Welcome to Waste2O", 1)
+    }
   }
   notification()
 }
 
 
 // makes the shopInfo tab appear and displays in it the info of the
-// chosen shop
 function markerClick(marker){
 
   if(document.getElementById("addShopVisible")){
+    console.log("can't open shop page")
     return
   }
 
   if(document.getElementById("shopPageHidden")){
     document.getElementById("shopPageHidden").id = "shopPageVisible";
+  }
+  else if(document.getElementById("shopPageInitial")){
+    document.getElementById("shopPageInitial").id = "shopPageVisible";
   }
 
   fetch('https://europe-west2-waste2o-268013.cloudfunctions.net/shopDetails', {
@@ -534,9 +541,13 @@ function searchLocation(){
 
 // add product to a certain shop
 function newProduct(address){
-  if(document.getElementById("newProductHidden")){
+  if(document.getElementById("newProductInitial")){
+    document.getElementById("newProductInitial").id = "newProductVisible";
+  }
+  else if(document.getElementById("newProductHidden")){
     document.getElementById("newProductHidden").id = "newProductVisible";
-  } else {
+  }
+  else if(document.getElementById("newProductVisible")){
     document.getElementById("newProductVisible").id = "newProductHidden";
   }
 }
@@ -629,7 +640,9 @@ function addProduct(){
 // toggles visibility of addShop window
 function toggleAddShop(){
   clearShopInfo()
-  if(document.getElementById("addShopHidden")){
+  if(document.getElementById("addShopInitial")){
+    document.getElementById("addShopInitial").id = "addShopVisible"
+  } else if(document.getElementById("addShopHidden")){
     document.getElementById("addShopHidden").id = "addShopVisible"
   } else {
     document.getElementById("addShopVisible").id = "addShopHidden"
