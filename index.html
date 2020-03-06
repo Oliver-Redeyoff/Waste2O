@@ -42,7 +42,7 @@
       <div id="shopProducts">
       </div>
 
-      <p id="addProduct" onclick="newProduct()">Add product</p>
+      <p id="addProduct" onclick="toggleNewProduct()">Add product</p>
     </div>
 
 
@@ -55,6 +55,7 @@
         <label>Address :</label><br><input id="shopAddressInput"></input><br>
         <label>Image link :</label><br><input id="shopImgInput"></input><br>
       </form>
+      <button onclick="addShop()">Add Shop</button>
     </div>
 
 
@@ -66,7 +67,7 @@
         <label>Packaging :</label><br><input id="packagingInput"></input><br>
         <label>Tags :</label><br><input id="tagsInput"></input><br>
       </form>
-      <button onclick="addProduct()">Add Product</button>
+      <button id="addShopButton" onclick="addProduct()">Add Product</button>
     </div>
 
 

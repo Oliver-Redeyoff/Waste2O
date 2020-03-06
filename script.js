@@ -376,6 +376,7 @@ function drop(title, position){
   google.maps.event.addDomListener(newMarker, 'click', function() {markerClick(newMarker)});
 }
 
+
 // geocodes address and drops a marker at that location
 function convertAndDrop(location){
   var request = new XMLHttpRequest()
@@ -407,8 +408,6 @@ function profileClick(){
 
 // TODO: move code to function above
 function checkCookie(){
-  console.log("The email cookie is : " + getCookie("email"))
-  console.log(getCookie("notMess"))
   if(getCookie("email") != ""){
     setCookie("notMess", "You are signed in", 1)
     document.getElementById("profileText").innerHTML = "Sign out";
@@ -425,7 +424,7 @@ function checkCookie(){
 function markerClick(marker){
 
   if(document.getElementById("addShopVisible")){
-    console.log("can't open shop page")
+    toggleAddShop()
     return
   }
 
@@ -453,23 +452,30 @@ function markerClick(marker){
       document.getElementById("shopProducts").innerHTML = "";
 
       for(product in data.products){
-        var html =
-          "<div id='product'>" +
-          "<p><a style='font-weight: bold'>Name : </a>" + data.products[product].name + "</p>" +
-          "<p><a style='font-weight: bold'>Description : </a>" + data.products[product].description + "</p>" +
-          "<p><a style='font-weight: bold'>Packaging : </a>" + data.products[product].packaging + "</p>" +
-          "<p><a style='font-weight: bold'>Rating : </a><a id='" + data.products[product].name + "'>" + data.products[product].rating + "</a></p>" +
+        console.log(data.products[product].rating)
+        if(data.products[product].rating > -10){
+          var html =
+            "<div id='product'>" +
+            "<p><a style='font-weight: bold'>Name : </a>" + data.products[product].name + "</p>" +
+            "<p><a style='font-weight: bold'>Description : </a>" + data.products[product].description + "</p>" +
+            "<p><a style='font-weight: bold'>Packaging : </a>" + data.products[product].packaging + "</p>" +
+            "<p><a style='font-weight: bold'>Rating : </a><a id='" + data.products[product].name + "'>" + data.products[product].rating + "</a></p>" +
 
-          "<p><a class='rateUp' id='" + data.products[product].name + "Upvote' onclick='rate(\"" + data.address + "\", \"" + data.products[product].name + "\", \"up\")'>Upvote</a>" +
-          "<a class='rateDown' id='" + data.products[product].name + "Downvote' onclick='rate(\"" + data.address + "\", \"" + data.products[product].name + "\", \"down\")'>Downvote</a></p>" +
+            "<p><a class='rateUp' id='" + data.products[product].name + "Upvote' onclick='rate(\"" + data.address + "\", \"" + data.products[product].name + "\", \"up\")'>Upvote</a>" +
+            "<a class='rateDown' id='" + data.products[product].name + "Downvote' onclick='rate(\"" + data.address + "\", \"" + data.products[product].name + "\", \"down\")'>Downvote</a></p>" +
 
-          "</div>";
+            "</div>";
 
-        document.getElementById("shopProducts").innerHTML += html;
+          document.getElementById("shopProducts").innerHTML += html;
+        }
       }
 
       if(document.getElementById("newProductVisible")){
         document.getElementById("newProductVisible").id = "newProductHidden";
+      }
+
+      if(getCookie("email") == ""){
+        document.getElementById("addProduct").id = "addProductDisabled"
       }
 
     });
@@ -489,6 +495,7 @@ function clearShopInfo(){
     document.getElementById("addShopVisible").id = "addShopHidden";
   }
 }
+
 
 // updates the rating of a given product in the database
 function rate(shopAddress, productName, value){
@@ -518,10 +525,10 @@ function rate(shopAddress, productName, value){
         setCookie("notMess", "Product downvoted", 1)
         notification()
       }
-      return response.json();
     })
 
 }
+
 
 // on submit of searchBar will center on the geocoded value of the searchBar
 function searchLocation(){
@@ -538,16 +545,21 @@ function searchLocation(){
 }
 
 
-// add product to a certain shop
-function newProduct(address){
-  if(document.getElementById("newProductInitial")){
-    document.getElementById("newProductInitial").id = "newProductVisible";
-  }
-  else if(document.getElementById("newProductHidden")){
-    document.getElementById("newProductHidden").id = "newProductVisible";
-  }
-  else if(document.getElementById("newProductVisible")){
-    document.getElementById("newProductVisible").id = "newProductHidden";
+// toggle the new product window
+function toggleNewProduct(){
+  if(document.getElementById("addProduct")){
+    if(document.getElementById("newProductInitial")){
+      document.getElementById("newProductInitial").id = "newProductVisible";
+    }
+    else if(document.getElementById("newProductHidden")){
+      document.getElementById("newProductHidden").id = "newProductVisible";
+    }
+    else if(document.getElementById("newProductVisible")){
+      document.getElementById("newProductVisible").id = "newProductHidden";
+    }
+  } else {
+    setCookie("notMess", "You must sign in to add a product", 1)
+    notification()
   }
 }
 
@@ -578,10 +590,9 @@ function getCookie(cname) {
   return "";
 }
 
+
 // function adds a product based on user input
 function addProduct(){
-
-  console.log("adding product")
 
   //var type = document.getElementById("typeInput").value
   var name = document.getElementById("nameInput").value
@@ -589,21 +600,8 @@ function addProduct(){
   var packaging = document.getElementById("packagingInput").value
   var tags = document.getElementById("tagsInput").value.split(", ")
   var address = document.getElementById("shopAddress").innerHTML
-  console.log(address)
 
-  if(name == "" || description == "" || packaging == "" || tags.length == 0){
-    return
-  } else {
-    console.log(JSON.stringify(
-      {
-        type: "test",
-        name: name,
-        description: description,
-        tags: tags,
-        packaging: packaging,
-        ownerAdded: true,
-        address: address
-      }))
+  if(name == "" && description == "" && packaging == "" && tags.length == 0){
     // post the product to the database
     fetch('https://europe-west2-waste2o-268013.cloudfunctions.net/addProduct', {
       body: JSON.stringify(
@@ -622,14 +620,13 @@ function addProduct(){
       method: "POST"
     })
       .then((response) => {
-        console.log(response)
-        if(response.statusText=="OK"){
-          console.log("created and added product")
+        if(response.ok){
           setCookie("notMess", "Added new product", 1)
           notification()
           clearShopInfo()
         } else {
-          console.log("didn't create and add product")
+          setCookie("notMess", "Couldn't add product", 1)
+          notification()
         }
       })
   }
@@ -638,31 +635,78 @@ function addProduct(){
 
 // toggles visibility of addShop window
 function toggleAddShop(){
-  if(document.getElementById("shopPageVisible")) {
-    document.getElementById("shopPageVisible").id = "shopPageHidden";
+  console.log("email is " + getCookie("email"))
+  if(getCookie("email") != ""){
+    if(document.getElementById("shopPageVisible")) {
+      document.getElementById("shopPageVisible").id = "shopPageHidden";
+    }
+    if(document.getElementById("newProductVisible")){
+      document.getElementById("newProductVisible").id = "newProductHidden";
+    }
+
+    if(document.getElementById("addShopInitial")){
+      document.getElementById("addShopInitial").id = "addShopVisible"
+    }
+    else if(document.getElementById("addShopHidden")){
+      document.getElementById("addShopHidden").id = "addShopVisible"
+    }
+    else if(document.getElementById("addShopVisible")){
+      document.getElementById("addShopVisible").id = "addShopHidden"
+    }
+  } else {
+    setCookie("notMess", "Sign in to add shop", 1)
+    notification()
   }
-  if(document.getElementById("newProductVisible")){
-    document.getElementById("newProductVisible").id = "newProductHidden";
+}
+
+
+// adds a shop to the databse based on user input
+function addShop(){
+
+  if(getCookie("email") != ""){
+
+    var name = document.getElementById("shopNameInput").value
+    var description = document.getElementById("shopDescriptionInput").value
+    var address = document.getElementById("shopAddressInput").value
+    var image = document.getElementById("shopImgInput").value
+
+    if(name != "" && description != "" && address != ""){
+      fetch('https://europe-west2-waste2o-268013.cloudfunctions.net/newShop', {
+        body: JSON.stringify(
+          {
+            name: name,
+            description: description,
+            address: address,
+            image: image,
+            email: getCookie("email")
+          }
+        ),
+        headers: {"Content-Type": "application/json"},
+        mode: 'cors',
+        method: "POST"
+      })
+        .then((response) => {
+          if(response.ok){
+            setCookie("notMess", "Added new shop", 1)
+            location.reload()
+          } else {
+            setCookie("notMess", "Couldn't add new shop", 1)
+            notification()
+            console.log(response)
+          }
+        })
+    }
+
+  } else {
+    setCookie("notMess", "Sign in to add new shop", 1)
+    notification()
   }
-  
-  if(document.getElementById("addShopInitial")){
-    console.log("initial")
-    document.getElementById("addShopInitial").id = "addShopVisible"
-  }
-  else if(document.getElementById("addShopHidden")){
-    console.log("hidden")
-    document.getElementById("addShopHidden").id = "addShopVisible"
-  }
-  else if(document.getElementById("addShopVisible")){
-    console.log("visible")
-    document.getElementById("addShopVisible").id = "addShopHidden"
-  }
+
 }
 
 
 // displays notification with cookie as it's message
 function notification(){
-  console.log(getCookie("notMess"))
   if(getCookie("notMess") != ""){
     document.getElementById("notificationMessage").innerHTML = getCookie("notMess")
   }

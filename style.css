@@ -26,16 +26,16 @@
 }
 
 @keyframes notification {
-  0%{left: -250px}
+  0%{left: -500px}
   20%{left: 20}
   80%{left: 20px}
-  100%{left: -250px}
+  100%{left: -500px}
 }
 @keyframes notification2 {
-  0%{left: -250px}
+  0%{left: -500px}
   20%{left: 20px}
   80%{left: 20px}
-  100%{left: -250px}
+  100%{left: -500px}
 }
 
 body{
@@ -122,7 +122,7 @@ body{
   background-color: rgba(70, 70, 70, 0.5);
   width: auto;
   height: auto;
-  left: -250px;
+  left: -500px;
   top: 120px;
   border-radius: 10px;
 }
@@ -140,12 +140,12 @@ body{
 }
 #not1{
   animation-name: notification;
-  animation-duration: 3s;
+  animation-duration: 4s;
   animation-iteration-count: 1;
 }
 #not2{
   animation-name: notification2;
-  animation-duration: 3s;
+  animation-duration: 4s;
   animation-iteration-count: 1;
 }
 
@@ -217,6 +217,24 @@ body{
   min-height: 100px;
   max-height: 200px;
   margin-bottom: 30px;
+}
+.addShop button{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 40px;
+  color: white;
+  font-size: 14px;
+  background-color: rgba(111, 124, 217, 0.7);
+  padding: 10px 5px 10px 5px;
+  border-radius: 5px;
+  text-align: center;
+  width: 100px;
+  border: 0px solid black;
+}
+.addShop button:hover{
+  padding: 12px 7px 12px 7px;
+  cursor: default;
 }
 
 #addShopInitial{
@@ -342,6 +360,15 @@ body{
 }
 #addProduct:hover{
   padding: 12px 7px 12px 7px;
+  cursor: default;
+}
+#addProductDisabled{
+  background-color: rgba(72, 82, 159, 0.7);
+  padding: 10px 5px 10px 5px;
+  border-radius: 5px;
+  text-align: center;
+  width: 100px;
+  margin-left: 10px;
   cursor: default;
 }
 

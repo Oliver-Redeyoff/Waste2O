@@ -26,7 +26,7 @@ function createAccount(){
       method: "POST"
     })
       .then((response) => {
-        if(response.statusText=="OK"){
+        if(response.ok){
           console.log("created account")
           setCookie("email", email.value, 100)
           setCookie("notMess", "You are signed in", 1)
