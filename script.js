@@ -705,6 +705,14 @@ function addShop(){
 }
 
 
+// adds notification saying that the shop has been reported
+function reportShop(){
+  setCookie("notMess", "You have reported a shop<br>we will forward this to an admin", 1)
+  notification()
+  clearShopInfo()
+}
+
+
 // displays notification with cookie as it's message
 function notification(){
   if(getCookie("notMess") != ""){

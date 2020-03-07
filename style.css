@@ -281,6 +281,22 @@ body{
   border-radius: 5px;
   margin-bottom: -10px;
 }
+.shopPage button{
+  margin-bottom: 40px;
+  color: white;
+  font-size: 14px;
+  background-color: rgba(149, 66, 66, 0.7);
+  padding: 10px 5px 10px 5px;
+  border-radius: 5px;
+  text-align: center;
+  width: 100px;
+  border: 0px solid black;
+}
+.shopPage button:hover{
+  padding: 12px 10px 12px 10px;
+  margin-bottom: 36px;
+  cursor: default;
+}
 
 #shopAddress{
   margin-left: 20px;
