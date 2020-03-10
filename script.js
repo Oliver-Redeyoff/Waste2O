@@ -545,6 +545,13 @@ function searchLocation(){
 }
 
 
+// on submit only shops how have the product name will be displayed
+function searchProduct(){
+  setCookie("notMess", "Not implemented this yet", 1)
+  notification()
+}
+
+
 // toggle the new product window
 function toggleNewProduct(){
   if(document.getElementById("addProduct")){

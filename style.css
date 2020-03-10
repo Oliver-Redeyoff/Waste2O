@@ -459,11 +459,16 @@ body{
 }
 
 
-#searchProduct{
+.searchProduct{
   position: absolute;
   bottom: 0;
-  right: -100px;
-  length: 100px;
-  height: 30px;
+  right: 0;
+  width: 320px;
+  height: 100px;
   background-color: rgba(226, 250, 250, 0.7);
+  border-radius: 20px 0px 0px 0px
+}
+.searchProduct input{
+  margin-top: -10px;
+  margin-right: 40px;
 }
