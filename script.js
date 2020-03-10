@@ -601,7 +601,7 @@ function addProduct(){
   var tags = document.getElementById("tagsInput").value.split(", ")
   var address = document.getElementById("shopAddress").innerHTML
 
-  if(name == "" && description == "" && packaging == "" && tags.length == 0){
+  if(name != "" && description != "" && packaging != "" && tags.length != 0){
     // post the product to the database
     fetch('https://europe-west2-waste2o-268013.cloudfunctions.net/addProduct', {
       body: JSON.stringify(
