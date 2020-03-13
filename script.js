@@ -337,7 +337,7 @@ function initMap() {
 
   request.onload = function() {
     var data = JSON.parse(this.response);
-    data.forEach(element => convertAndDrop(element));
+    data.forEach(element => convertAndDrop(element, "blue"));
   }
   request.send();
 
@@ -366,20 +366,24 @@ function initMap() {
 
 
 // drops a marker at a given coordinate location
-function drop(title, position){
+function drop(title, position, color){
 	var newMarker = new google.maps.Marker({
     animation: google.maps.Animation.DROP,
     Title: title,
     position: position,
     map: map,
+    icon: {
+      url: "http://maps.google.com/mapfiles/ms/icons/" + color + "-dot.png"
+    }
   });
   google.maps.event.addDomListener(newMarker, 'click', function() {markerClick(newMarker)});
 }
 
 
 // geocodes address and drops a marker at that location
-function convertAndDrop(location){
+function convertAndDrop(location, color){
   var request = new XMLHttpRequest()
+  console.log(location.address)
   fetch('https://maps.googleapis.com/maps/api/geocode/json?address=' + location.address + '&key=AIzaSyDSbrWA2sznywFet3dt4yodoLdTCLpVxJE', {
     mode: 'cors',
     method: "GET"
@@ -388,7 +392,7 @@ function convertAndDrop(location){
       return response.json();
     })
     .then((data) => {
-      drop(location.address, data.results[0].geometry.location);
+      drop(location.address, data.results[0].geometry.location, color);
     });
 }
 
@@ -542,13 +546,6 @@ function searchLocation(){
     .then((data) => {
       map.setCenter(data.results[0].geometry.location);
     });
-}
-
-
-// on submit only shops how have the product name will be displayed
-function searchProduct(){
-  setCookie("notMess", "Not implemented this yet", 1)
-  notification()
 }
 
 
@@ -717,6 +714,32 @@ function reportShop(){
   setCookie("notMess", "You have reported a shop<br>we will forward this to an admin", 1)
   notification()
   clearShopInfo()
+}
+
+
+// displays only shops which have a certain product
+function searchProduct(){
+
+  var productName = document.getElementById("productSearchBar").value
+
+  fetch('https://europe-west2-waste2o-268013.cloudfunctions.net/searchItem', {
+    body: JSON.stringify(
+      {
+        product: productName
+      }
+    ),
+    headers: {"Content-Type": "application/json"},
+    mode: 'cors',
+    method: "POST"
+  })
+  .then(response => response.json())
+  .then(data => {
+    for(shop in data){
+      console.log(shop)
+      convertAndDrop(data[shop], "green")
+      convertAndDrop({address: "16 Spring Gardens Road, BA2 4HY, Bath, Britain"}, "green")
+    }
+  })
 }
 
 
