@@ -734,10 +734,14 @@ function searchProduct(){
   })
   .then(response => response.json())
   .then(data => {
+    if(data.length == 0){
+      setCookie("notMess", "No such product exists", 1)
+      notification()
+      return
+    }
     for(shop in data){
       console.log(shop)
       convertAndDrop(data[shop], "green")
-      convertAndDrop({address: "16 Spring Gardens Road, BA2 4HY, Bath, Britain"}, "green")
     }
   })
 }
