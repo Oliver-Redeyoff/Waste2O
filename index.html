@@ -40,7 +40,9 @@
       <p id="shopDescription"></p>
 
       <h2>Products :</h2>
-      <p id="shopTags"></p>
+      <div id="shopTagsContainer">
+        <p id="shopTags"></p>
+      </div>
       <div id="shopProducts">
       </div>
 
@@ -66,7 +68,13 @@
       <form>
         <label>Name :</label><br><input id="nameInput"></input><br>
         <label>Description :</label><br><textarea id="descriptionInput"></textarea><br>
-        <label>Packaging :</label><br><input id="packagingInput"></input><br>
+        <label>Packaging :</label><br><select id="packagingInput">
+          <option value="None">None</option>
+          <option value="Glass">Glass</option>
+          <option value="Compostable">Compostable</option>
+          <option value="Cardboard">Cardboard</option>
+          <option value="Other">Other</option>
+        </select><br>
         <label>Tags :</label><br><input id="tagsInput"></input><br>
       </form>
       <button id="addShopButton" onclick="addProduct()">Add Product</button>

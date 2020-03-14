@@ -443,15 +443,41 @@ body{
   animation-iteration-count: 1;
 }
 
-
+#shopTagsContainer{
+  width: 100%;
+  height: auto;
+  word-wrap: break-word;
+}
+#productTag{
+  width: auto;
+  height: auto;
+  background-color: rgba(154, 171, 97, 0.5);
+  margin-right: 10px;
+  line-height: 40px;
+  border-radius: 5px;
+  padding: 3px;
+}
 .newProductPage h1{
+  width: auto;
   color: rgba(124, 186, 204, 1);
+  font-weight: bold;
+  background-color: rgba(84, 84, 84, 1);
+  padding: 10px 10px 10px 10px;
+  border-radius: 5px;
+  margin-bottom: 20px;
 }
 .newProductPage label{
   margin-bottom: 20px;
   font-size: 18px;
 }
 .newProductPage input{
+  margin-bottom: 20px;
+}
+#packagingInput{
+  width: 100px;
+  height: 30px;
+  font-family: arial;
+  background-color: white;
   margin-bottom: 20px;
 }
 .newProductPage textarea{

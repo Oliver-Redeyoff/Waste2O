@@ -480,14 +480,17 @@ function markerClick(marker){
         }
       }
 
-      var tagsSet = new Set(tags);
-      var it = tagsSet.values();
-      for(var i=0 ; i<tagsSet.size ; i++){
-        document.getElementById("shopTags").innerHTML += "<a style='backgroundColor: white; margin-right: 20px>" + it.next().value + "</a>"
+      var set = new Set(tags);
+      var tagSet = Array.from(set)
+      document.getElementById("shopTags").innerHTML = ""
+
+      for(var i=0 ; i<tagSet.length ; i++){
+        console.log(tagSet[i])
+        document.getElementById("shopTags").innerHTML += "<a id='productTag'>" + tagSet[i] + "</a>"
         console.log("added tag")
       }
       console.log(tags)
-      console.log(tagsSet)
+      console.log(tagSet)
 
       if(document.getElementById("newProductVisible")){
         document.getElementById("newProductVisible").id = "newProductHidden";
