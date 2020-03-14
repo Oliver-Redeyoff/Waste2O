@@ -383,7 +383,6 @@ function drop(title, position, color){
 // geocodes address and drops a marker at that location
 function convertAndDrop(location, color){
   var request = new XMLHttpRequest()
-  console.log(location.address)
   fetch('https://maps.googleapis.com/maps/api/geocode/json?address=' + location.address + '&key=AIzaSyDSbrWA2sznywFet3dt4yodoLdTCLpVxJE', {
     mode: 'cors',
     method: "GET"
@@ -449,14 +448,21 @@ function markerClick(marker){
       return response.json();
     })
     .then((data) => {
+      console.log(data)
       document.getElementById("shopName").innerHTML = data.name;
       document.getElementById("shopAddress").innerHTML = data.address;
       document.getElementById("shopPic").src = data.image;
       document.getElementById("shopDescription").innerHTML = data.description;
       document.getElementById("shopProducts").innerHTML = "";
 
+      var tags = []
+
       for(product in data.products){
-        console.log(data.products[product].rating)
+
+        for (tag in data.products[product].tags){
+          tags.push(data.products[product].tags[tag])
+        }
+
         if(data.products[product].rating > -10){
           var html =
             "<div id='product'>" +
@@ -474,11 +480,20 @@ function markerClick(marker){
         }
       }
 
+      var tagsSet = new Set(tags);
+      var it = tagsSet.values();
+      for(var i=0 ; i<tagsSet.size ; i++){
+        document.getElementById("shopTags").innerHTML += "<a style='backgroundColor: white; margin-right: 20px>" + it.next().value + "</a>"
+        console.log("added tag")
+      }
+      console.log(tags)
+      console.log(tagsSet)
+
       if(document.getElementById("newProductVisible")){
         document.getElementById("newProductVisible").id = "newProductHidden";
       }
 
-      if(getCookie("email") == ""){
+      if(getCookie("email") == "" && document.getElementById("addProduct")){
         document.getElementById("addProduct").id = "addProductDisabled"
       }
 
