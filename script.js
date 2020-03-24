@@ -480,6 +480,10 @@ function markerClick(marker){
         }
       }
 
+      for (tag in tags){
+        tags[tag] = tags[tag].toLowerCase();
+      }
+
       var set = new Set(tags);
       var tagSet = Array.from(set)
       document.getElementById("shopTags").innerHTML = ""
