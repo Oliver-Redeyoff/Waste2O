@@ -518,3 +518,14 @@ body{
   margin-top: -10px;
   margin-right: 40px;
 }
+
+#loadingMess{
+  width: auto;
+  text-align: center;
+  color: rgba(124, 186, 204, 1);
+  font-weight: bold;
+  background-color: rgba(84, 84, 84, 1);
+  padding: 10px 10px 10px 10px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}

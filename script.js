@@ -490,7 +490,7 @@ function markerClick(marker){
 
       for(var i=0 ; i<tagSet.length ; i++){
         console.log(tagSet[i])
-        document.getElementById("shopTags").innerHTML += "<a id='productTag'>" + tagSet[i] + "</a>"
+        document.getElementById("shopTags").innerHTML += "<a id='productTag' style='cursor: pointer' onclick='filterTag(\"" + tagSet[i] + "\")'>" + tagSet[i] + "</a>"
         console.log("added tag")
       }
       console.log(tags)
@@ -504,6 +504,50 @@ function markerClick(marker){
         document.getElementById("addProduct").id = "addProductDisabled"
       }
 
+    });
+
+}
+
+
+function filterTag(tag){
+
+  document.getElementById("shopProducts").innerHTML = "<p id='loadingMess'>loading products</p>"
+
+  fetch('https://europe-west2-waste2o-268013.cloudfunctions.net/filterTags', {
+    body: JSON.stringify(
+      {
+        address: document.getElementById("shopAddress").innerHTML,
+        tag: tag
+      }),
+    headers: {"Content-Type": "application/json"},
+    mode: 'cors',
+    method: "POST"
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+
+      document.getElementById("shopProducts").innerHTML = ""
+
+      for(product in data.products){
+
+        if(data.products[product].rating > -10){
+          var html =
+            "<div id='product'>" +
+            "<p><a style='font-weight: bold'>Name : </a>" + data.products[product].name + "</p>" +
+            "<p><a style='font-weight: bold'>Description : </a>" + data.products[product].description + "</p>" +
+            "<p><a style='font-weight: bold'>Packaging : </a>" + data.products[product].packaging + "</p>" +
+            "<p><a style='font-weight: bold'>Rating : </a><a id='" + data.products[product].name + "'>" + data.products[product].rating + "</a></p>" +
+
+            "<p><a class='rateUp' id='" + data.products[product].name + "Upvote' onclick='rate(\"" + data.address + "\", \"" + data.products[product].name + "\", \"up\")'>Upvote</a>" +
+            "<a class='rateDown' id='" + data.products[product].name + "Downvote' onclick='rate(\"" + data.address + "\", \"" + data.products[product].name + "\", \"down\")'>Downvote</a></p>" +
+
+            "</div>";
+
+          document.getElementById("shopProducts").innerHTML += html;
+        }
+      }
     });
 
 }
