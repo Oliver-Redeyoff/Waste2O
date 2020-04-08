@@ -34,7 +34,7 @@ def fetch_shop_details(request):
         address = request_json.get("address", "")
         
         if address == "":
-            return('no-shop', 400, headers)
+            return('invalid-request', 400, headers)
         
         collection_path = "shops"
         
@@ -43,7 +43,7 @@ def fetch_shop_details(request):
         doc = db.collection(collection_path).document(address).get()
         
         if not doc.exists:
-            return("doesn't exist", 400, headers)
+            return("shop-doesn't-exist", 400, headers)
 
         dic = doc.to_dict()
         

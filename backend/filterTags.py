@@ -1,7 +1,7 @@
 from google.cloud import firestore
 import json
 
-def get_shops(request):
+def filter_tags(request):
     """Responds to any HTTP request.
     Args:
         request (flask.Request): HTTP request object.
@@ -10,6 +10,7 @@ def get_shops(request):
         Response object using
         `make_response <http://flask.pocoo.org/docs/1.0/api/#flask.Flask.make_response>`.
     """
+    
     if request.method == 'OPTIONS':
         # Allows GET requests from any origin with the Content-Type
         # header and caches preflight response for an 3600s
@@ -26,20 +27,34 @@ def get_shops(request):
     headers = {
         'Access-Control-Allow-Origin': '*',
     }
+    
     request_json = request.get_json()
     
     try:
+        tag = request_json.get("tag", "").lower()
+        address = request_json.get("address", "")
+        
+        if tag == "" or address == "":
+            return('invalid-request', 400, headers)
+        
         collection_path = "shops"
         db = firestore.Client()
-        doc = db.collection(collection_path).stream()
-        dic = []
-        print(doc)
         
-        for i in doc:
-            i = i.to_dict()
-            thisDic = {"name": i["name"], "address": i["address"]}
-            dic.append(thisDic)
+        doc = db.collection(collection_path).document(address).get()
         
+        if not doc.exists:
+            return("shop-doesn't-exist", 400, headers)
+
+        dic = doc.to_dict()
+        products = []
+        for prod in dic["products"]:
+            if tag in map(str.lower, prod["tags"]):
+                products.append(prod)
+        
+        dic["products"] = products
+                
+            
     except Exception as e:
         return(str(e), 500, headers)
+    
     return(json.dumps(dic), 200, headers)

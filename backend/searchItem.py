@@ -1,7 +1,7 @@
 from google.cloud import firestore
 import json
 
-def get_shops(request):
+def find_shops(request):
     """Responds to any HTTP request.
     Args:
         request (flask.Request): HTTP request object.
@@ -10,6 +10,7 @@ def get_shops(request):
         Response object using
         `make_response <http://flask.pocoo.org/docs/1.0/api/#flask.Flask.make_response>`.
     """
+    
     if request.method == 'OPTIONS':
         # Allows GET requests from any origin with the Content-Type
         # header and caches preflight response for an 3600s
@@ -26,20 +27,33 @@ def get_shops(request):
     headers = {
         'Access-Control-Allow-Origin': '*',
     }
+    
     request_json = request.get_json()
     
     try:
+        product = request_json.get("product", "").lower()
+        
+        if product == "":
+            return('invalid-request', 400, headers)
+        
         collection_path = "shops"
         db = firestore.Client()
         doc = db.collection(collection_path).stream()
         dic = []
-        print(doc)
         
         for i in doc:
+            #print("here")
+            
             i = i.to_dict()
-            thisDic = {"name": i["name"], "address": i["address"]}
-            dic.append(thisDic)
-        
+            #print(i)
+            
+            for prod in i["products"]:
+                #print(prod)
+                if prod["name"].lower() == product:
+                    thisDic = {"name": i["name"], "address": i["address"]}
+                    dic.append(thisDic)
+            
     except Exception as e:
         return(str(e), 500, headers)
+    
     return(json.dumps(dic), 200, headers)
