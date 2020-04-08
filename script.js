@@ -785,7 +785,7 @@ function reportShop(){
 
 // displays only shops which have a certain product
 function searchProduct(){
-
+  location.reload();
   var productName = document.getElementById("productSearchBar").value
 
   fetch('https://europe-west2-waste2o-268013.cloudfunctions.net/searchItem', {

@@ -40,7 +40,16 @@ function createAccount(){
       })
   } else {
     message.style.display = "block"
-    message.innerHTML = "Your details are wrong or your account already exists"
+    if(password.value.length < 8) {
+      message.innerHTML = "Password must be at least 8 characters long";
+    } else if(!email.value.includes("@")) {
+      message.innerHTML = "Email must include an @"
+    } else if(password.value!=passwordConfirm.value) {
+      message.innterHTML = "Passwords don't match"
+    } else {
+      message.innerHTML = "Details incorrect"
+    }
+    
   }
 }
 
