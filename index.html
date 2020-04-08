@@ -53,11 +53,12 @@
     <div id="addShopButtonContainer" onclick="toggleAddShop()"><a id="addShopButtonText">Add shop</a></div>
     <div class="addShop" id="addShopInitial">
       <h1>Add new shop</h1>
+      <h4>Please add all fields</h4>
       <form>
-        <label>Name* :</label><br><input id="shopNameInput"></input><br>
-        <label>Description* :</label><br><textarea id="shopDescriptionInput"></textarea><br>
-        <label>Address* :</label><br><input id="shopAddressInput"></input><br>
-        <label>Image link* :</label><br><input id="shopImgInput"></input><br>
+        <label>Name :</label><br><input id="shopNameInput"></input><br>
+        <label>Description :</label><br><textarea id="shopDescriptionInput"></textarea><br>
+        <label>Address :</label><br><input id="shopAddressInput"></input><br>
+        <label>Image link :</label><br><input id="shopImgInput"></input><br>
       </form>
       <button onclick="addShop()">Add Shop</button>
     </div>
@@ -65,17 +66,18 @@
 
     <div class="newProductPage" id="newProductInitial">
       <h1>Add new product</h1>
+      <h4>Please add all fields</h4>
       <form>
-        <label>Name* :</label><br><input id="nameInput"></input><br>
-        <label>Description* :</label><br><textarea id="descriptionInput"></textarea><br>
-        <label>Packaging* :</label><br><select id="packagingInput">
+        <label>Name :</label><br><input id="nameInput"></input><br>
+        <label>Description :</label><br><textarea id="descriptionInput"></textarea><br>
+        <label>Packaging :</label><br><select id="packagingInput">
           <option value="None">None</option>
           <option value="Glass">Glass</option>
           <option value="Compostable">Compostable</option>
           <option value="Cardboard">Cardboard</option>
           <option value="Other">Other</option>
         </select><br>
-        <label>Tags* :</label><br><input id="tagsInput"></input><br>
+        <label>Tags :</label><br><input id="tagsInput"></input><br>
       </form>
       <button id="addShopButton" onclick="addProduct()">Add Product</button>
     </div>
