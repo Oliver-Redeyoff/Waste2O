@@ -1,2 +1,2 @@
 # Waste2O
-Repo for IP project 2019/2020
+Find zero-waste stores near you and organize your zero-waste shopping
